@@ -7,69 +7,75 @@
 #ifndef FUNCTIONS
 #define FUNCTIONS
 
-int pow2(int y){
-	int result = 1;
-	for(int i=0;i<y;++i){
-		result *= 2;
+int pow2(int a, int b){
+	int n = 1;
+	for(int i=0;i<b;++i){
+		n *= a;
 	}
-	return result;
+	return n;
 }
 
-int toNumSystem(int a, int memlength, int base)
+void toNumSystem(int a, int memlength, int base, char* string)
 {
-    int numberbackup = a;
-    int n = 100;
-    int flag = 0;
-    char* c; 
-    c = (char *)malloc(n * sizeof(char));
     int k = 0;
+    char tmp;
 
 	if(a < 0){
 		a = -a;
-		flag = 1;
 	}
 
     while (a > 1)
     {
-        c[k++] = (a % base) + '0';
+        string[k++] = (a % base) + '0';
         a = a / base;
     }
-    c[k++] = a + '0';
-    c[k] = '\0';
-    char tmp;
-
-    printf("K = %d\nMemlength = %d", k, memlength);
-    if(k > memlength){
-	printf("Memory length is too small!\n");
-	exit(-1);
-    }
-
+    string[k++] = a + '0';
+    string[k] = '\0';
 
     for (int i = 0; i < k / 2; i++)
     {
-        tmp = c[i];
-        c[i] = c[k - 1 - i];
-        c[k - 1 - i] = tmp;
+        tmp = string[i];
+        string[i] = string[k - 1 - i];
+        string[k - 1 - i] = tmp;
     }
-    printf("In %d numeric system: ", base);
 
-	if(numberbackup < 0) printf("%d", base-1);
-	else 	  printf("0");
 
-for(int i=0;i<memlength-k;i++){
-	printf("0");
-}
-
+	/*
     for (int i = 0; i < memlength; i++)
-        printf("%c", c[i]);
+        printf("%c", string[i]);
     printf("\n");
-    free(c);
-    return k;
+	*/
+    // printf("Number in %d numeric system = %s\n", base, string);
+}
+
+void Reversed_Code(char* string){
+	for(int i=0;i<strlen(string);++i){
+		if(string[i] == '1'){
+			string[i] = '0';
+		}
+		else{
+			string[i] = '1';
+		}
+	}
+	printf("Revesed number: %s\n", string);
+}	
+
+void Addition_Code(char* string, int memlength, int base){
+	int rank = strlen(string);
+	int number = 0;
+	char* str = (char*) malloc(24);
+
+	for(int i=rank+1;i>0;--i){
+		if(string[i] == '1'){
+			number += pow2(base, rank-i-1);
+		}
+	}
+	number++;
+	// printf("Number is %d\n", number);
+	toNumSystem(number, memlength, base, str);
+	printf("Addition code: %s\n", str);
 }
 
 
-void Convert_to_numeral_system(char* string, int size, int number, int base){
-	return;
-}
- 
+
 #endif

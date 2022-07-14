@@ -14,7 +14,8 @@ int main(int argc, const char* argv[]){
 	int number = -120;
 	int memlength = 8;
 	int base = 2;
-	/*
+	char string[25] = {0,};
+
 	printf("Enter a number: ");
 	scanf("%d", &number);
 
@@ -23,19 +24,19 @@ int main(int argc, const char* argv[]){
 	
 	printf("Enter numeric number: ");
 	scanf("%d", &base);
-	*/
-	int count = toNumSystem(number, memlength, base);
-
-	int power = pow2(count);
+	
 	if(number < 0){
-		toNumSystem(-power+number, memlength, base);
-		toNumSystem(-power+number+1, memlength, base);
+		toNumSystem(number, memlength, base, string);
+		printf("Number: %s\n", string);
+		Reversed_Code(string);
+		Addition_Code(string, memlength, base);
 	}
 	else{
-		toNumSystem(number, memlength, base);
-		toNumSystem(number, memlength, base);
+		toNumSystem(number, memlength, base, string);
+		printf("Reversed number: %s\n", string);
+		printf("Addition code: %s\n", string);
+		toNumSystem(number, memlength, base, string);
 	}
-
 	return 0;
 }
 
