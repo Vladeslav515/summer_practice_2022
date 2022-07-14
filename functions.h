@@ -17,6 +17,7 @@ int pow2(int a, int b){
 
 void toNumSystem(int a, int memlength, int base, char* string)
 {
+    memlength--;
     int k = 0;
     char tmp;
 
@@ -28,6 +29,10 @@ void toNumSystem(int a, int memlength, int base, char* string)
     {
         string[k++] = (a % base) + '0';
         a = a / base;
+	if(k > memlength){
+		printf("No memory!\n");
+		exit(-1);
+	}
     }
     string[k++] = a + '0';
     string[k] = '\0';
@@ -38,14 +43,6 @@ void toNumSystem(int a, int memlength, int base, char* string)
         string[i] = string[k - 1 - i];
         string[k - 1 - i] = tmp;
     }
-
-
-	/*
-    for (int i = 0; i < memlength; i++)
-        printf("%c", string[i]);
-    printf("\n");
-	*/
-    // printf("Number in %d numeric system = %s\n", base, string);
 }
 
 void Reversed_Code(char* string){
@@ -65,15 +62,15 @@ void Addition_Code(char* string, int memlength, int base){
 	int number = 0;
 	char* str = (char*) malloc(24);
 
-	for(int i=rank+1;i>0;--i){
+	for(int i=rank;i>0;--i){
 		if(string[i] == '1'){
 			number += pow2(base, rank-i-1);
 		}
 	}
 	number++;
-	// printf("Number is %d\n", number);
 	toNumSystem(number, memlength, base, str);
 	printf("Addition code: %s\n", str);
+	free(str);
 }
 
 
